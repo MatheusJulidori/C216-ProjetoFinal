@@ -1,0 +1,12 @@
+CREATE TABLE carro (
+  id SERIAL PRIMARY KEY,
+  marca VARCHAR(255) NOT NULL,
+  modelo VARCHAR(255) NOT NULL,
+  cor VARCHAR(255) NOT NULL,
+  potencia VARCHAR(255) NOT NULL,
+  cilindradas VARCHAR(255) NOT NULL,
+  zero_a_cem VARCHAR(255) NOT NULL,
+  peso VARCHAR(255) NOT NULL,
+  consumo VARCHAR(255) NOT NULL,
+  caracteristicas_extras VARCHAR(255) NOT NULL
+)

@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_DATABASE: carro_db
+      MYSQL_USER: carro_user
+      MYSQL_PASSWORD: senha123
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  backend:
+    image: node:20
+    container_name: backend_container
+    working_dir: /app
+    volumes:
+      - ./backend/src:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run start"
+    depends_on:
+      - mysql
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend_container
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
