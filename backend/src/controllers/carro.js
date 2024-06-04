@@ -1,6 +1,7 @@
 import db from '../database/index.js';
 
 async function getCarros(req,res){
+    console.log('getCarros')
     try {
         const [rows] = await db.query('SELECT * FROM carro');
         res.status(200).json(rows);
@@ -25,7 +26,7 @@ async function getCarroById(req,res){
 async function createCarro(req,res){
     const {modelo, marca, ano, preco, cor} = req.body;
     try {
-        const [result] = await db.query('INSERT INTO carro (modelo, marca, ano, prec, cor) VALUES (?,?,?,?, ?)',
+        const [result] = await db.query('INSERT INTO carro (modelo, marca, ano, preco, cor) VALUES (?,?,?,?, ?)',
         [modelo, marca, ano, preco, cor]);
         res.status(201).json({id: result.insertId, ...req.body});
     } catch (error) {
