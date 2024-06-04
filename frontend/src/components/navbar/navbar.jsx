@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
   };
 
   return (
@@ -20,13 +41,13 @@ const Navbar = () => {
         </div>
         <ul className={isOpen ? 'navbar-links active' : 'navbar-links'}>
           <li>
-            <Link to="/" onClick={toggleMenu}>Home</Link>
+            <Link to="/" onClick={handleLinkClick}>Home</Link>
           </li>
           <li>
-            <Link to="/car-list" onClick={toggleMenu}>Lista de carros</Link>
+            <Link to="/car-list" onClick={handleLinkClick}>Car List</Link>
           </li>
           <li>
-            <Link to="/add-car" onClick={toggleMenu}>Adicionar carro</Link>
+            <Link to="/add-car" onClick={handleLinkClick}>Add Car</Link>
           </li>
         </ul>
       </nav>
