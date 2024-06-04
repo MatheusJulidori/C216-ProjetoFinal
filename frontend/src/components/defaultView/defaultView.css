@@ -1,0 +1,14 @@
+/* DefaultView.css */
+.default-view {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+  }
+  
+  .content-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  
