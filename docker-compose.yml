@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mysql:
+  db:
     image: mysql:8.0
     container_name: mysql_container
     environment:
@@ -26,8 +26,15 @@ services:
     command: sh -c "npm install && npm run start"
     depends_on:
       - mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: carro_db
+      MYSQL_USER: carro_user
+      MYSQL_PASSWORD: senha123
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
     ports:
-      - "3001:3001"
+      - "4000:4000"
     networks:
       - app-network
 
@@ -36,6 +43,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     container_name: frontend_container
+    environment:
+      API_BASE_URL: http://backend:4000/api
     depends_on:
       - backend
     ports:

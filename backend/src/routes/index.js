@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCarro, deleteCarro, getCarroById, getCarros, updateCarro } from '../controllers/carro';
+import { createCarro, deleteCarro, getCarroById, getCarros, updateCarro } from '../controllers/carro.js';
 
 const router = express.Router();
 
