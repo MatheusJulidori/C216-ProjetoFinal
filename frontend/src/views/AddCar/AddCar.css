@@ -1,4 +1,59 @@
-.add-car {
-    color: #000; /* Change text color to black or any visible color */
-    padding: 20px;
-  }
+/* AddCar.css */
+.add-car-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.add-car-container h1 {
+  font-family: 'Formula1-Bold', Arial, sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.add-car-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-car-form label {
+  font-family: 'Formula1-Regular', Arial, sans-serif;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.add-car-form input {
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Formula1-Regular', Arial, sans-serif;
+  width: calc(100% - 22px); /* Adjust for padding and border */
+}
+
+.add-car-form button {
+  padding: 10px;
+  background-color: #F70100;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Formula1-Bold', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.add-car-form button:hover {
+  background-color: #d50000;
+}
