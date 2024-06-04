@@ -1,6 +1,8 @@
 import './AddCar.css';
 import { useState } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const AddCar = () => {
   const [car, setCar] = useState({
     marca: '',
@@ -18,18 +20,31 @@ const AddCar = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to send car data to API
-    console.log('Car added:', car);
-    // Clear the form
-    setCar({
-      marca: '',
-      modelo: '',
-      ano: '',
-      cor: '',
-      preco: ''
-    });
+    try {
+      const response = await fetch(`${API_BASE_URL}/carro`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(car)
+      });
+      if (response.ok) {
+        console.log('Car added:', car);
+        setCar({
+          marca: '',
+          modelo: '',
+          ano: '',
+          cor: '',
+          preco: ''
+        });
+      } else {
+        console.error('Error adding car:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error adding car:', error);
+    }
   };
 
   return (

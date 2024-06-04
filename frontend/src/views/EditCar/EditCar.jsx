@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import './EditCar.css';
 import PropTypes from 'prop-types';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const EditCar = ({ carToEdit, onSave }) => {
   const [car, setCar] = useState({
     id: '',
@@ -26,11 +28,25 @@ const EditCar = ({ carToEdit, onSave }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to send updated car data to API
-    console.log('Car edited:', car);
-    onSave(car);
+    try {
+      const response = await fetch(`${API_BASE_URL}/carro/${car.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(car)
+      });
+      if (response.ok) {
+        console.log('Car edited:', car);
+        onSave(car);
+      } else {
+        console.error('Error editing car:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error editing car:', error);
+    }
   };
 
   return (
@@ -64,15 +80,15 @@ const EditCar = ({ carToEdit, onSave }) => {
 };
 
 EditCar.propTypes = {
-    carToEdit: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      marca: PropTypes.string.isRequired,
-      modelo: PropTypes.string.isRequired,
-      ano: PropTypes.string.isRequired,
-      cor: PropTypes.string.isRequired,
-      preco: PropTypes.string.isRequired
-    }).isRequired,
-    onSave: PropTypes.func.isRequired
-  };
+  carToEdit: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    marca: PropTypes.string.isRequired,
+    modelo: PropTypes.string.isRequired,
+    ano: PropTypes.string.isRequired,
+    cor: PropTypes.string.isRequired,
+    preco: PropTypes.string.isRequired
+  }).isRequired,
+  onSave: PropTypes.func.isRequired
+};
 
 export default EditCar;

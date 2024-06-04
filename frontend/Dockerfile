@@ -1,9 +1,10 @@
 FROM node:20 as build
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm install
+RUN npm install -g pnpm
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 # Serve stage
 FROM nginx:alpine

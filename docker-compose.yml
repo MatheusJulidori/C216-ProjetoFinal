@@ -12,27 +12,29 @@ services:
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "3306:3306"
+      - "3306:3306" 
     networks:
       - app-network
 
   backend:
-    image: node:20
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: backend_container
     working_dir: /app
     volumes:
-      - ./backend/src:/app
+      - ./backend:/app
       - /app/node_modules
     command: sh -c "npm install && npm run start"
     depends_on:
-      - mysql
+      - db
     restart: always
     environment:
       MYSQL_DATABASE: carro_db
       MYSQL_USER: carro_user
       MYSQL_PASSWORD: senha123
       MYSQL_HOST: db
-      MYSQL_PORT: 3306
+      MYSQL_PORT: 3306 
     ports:
       - "4000:4000"
     networks:
@@ -44,14 +46,15 @@ services:
       dockerfile: Dockerfile
     container_name: frontend_container
     environment:
-      API_BASE_URL: http://backend:4000/api
+      REACT_APP_API_BASE_URL: http://backend:4000/api
+      VITE_API_BASE_URL: http://backend:4000/api
     depends_on:
       - backend
     ports:
       - "3000:80"
     networks:
-      - mynetwork
+      - app-network
 
 networks:
-  mynetwork:
+  app-network:
     driver: bridge
