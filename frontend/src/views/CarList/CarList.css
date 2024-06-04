@@ -1,4 +1,59 @@
-.car-list {
-    color: #000; /* Change text color to black or any visible color */
-    padding: 20px;
-  }
+/* CarList.css */
+.car-list-container {
+  padding: 20px;
+  background-color: #f4f4f4;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.car-list-container h1 {
+  font-family: 'Formula1-Bold', Arial, sans-serif;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.car-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.car-table th,
+.car-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  font-family: 'Formula1-Regular', Arial, sans-serif;
+  color: #333;
+}
+
+.car-table th {
+  background-color: #20232a;
+  color: white;
+}
+
+.car-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.car-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.edit-btn, .delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 0 5px;
+}
+
+.edit-btn:hover {
+  color: #F70100;
+}
+
+.delete-btn:hover {
+  color: #F70100;
+}
